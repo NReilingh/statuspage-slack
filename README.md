@@ -1,29 +1,17 @@
-statuspage-slack
-
-Welcome to Glitch
+Statuspage-Slack Webhook Translator
 =================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+All you have to do to use this service is to take your Slack webhook endpoint (which looks something like this):
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+    https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 
-Find out more [about Glitch](https://glitch.com/about).
+And change the domain to match this application, like:
 
+    https://statuspage-slack.glitch.me/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 
-Your Project
-------------
+... before feeding it into a Statuspage.io webhook subscription.
+This app doesn't maintain any state, so it just translates the Statuspage webhook content into a Slack message payload, and forwards it to the equivalent Slack endpoint.
 
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Fog Creek](https://fogcreek.com/)
--------------------
+Hey, I'm on [GitHub](https://github.com/NReilingh/statuspage-slack).
 
 \ ゜o゜)ノ

@@ -1,6 +1,7 @@
 dependencies:
   express: 4.16.3
   request: 2.87.0
+  simple-base: 0.2.1
 packages:
   /accepts/1.3.5:
     dependencies:
@@ -571,6 +572,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==
+  /simple-base/0.2.1:
+    dev: false
+    resolution:
+      integrity: sha1-egrMzuHS6RPyqPaP1/9zmvWpPvM=
   /sshpk/1.14.2:
     dependencies:
       asn1: 0.2.3
@@ -661,4 +666,5 @@ shrinkwrapMinorVersion: 8
 shrinkwrapVersion: 3
 specifiers:
   express: ^4.16.3
-  request: ^2.81.0
+  request: ^2.87.0
+  simple-base: ^0.2.1

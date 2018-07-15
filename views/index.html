@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/style.css">
     
     <!-- import the webpage's client-side javascript file -->
+    <script src="https://unpkg.com/simple-base@0.2.1/dist/simple-base.js"></script>
     <script src="/client.js" defer></script>
   </head>
   <body>
@@ -32,18 +33,21 @@
 
     <main>
       <p class="bold">Oh hi,</p>
-      
-      <p>All you have to do to use this service is to take your Slack webhook endpoint (which looks something like this):</p>
+      <p>
+        Statuspage webhooks don't currently support case-sensitive URLs, so the initial strategy of just configuring the webhook to be the same endpoint as Slack's, but on this server, doesn't work. Instead, we need to encode the Slack endpoint (which looks something like this):
+      </p>
       <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
       <p>
-        And change the domain to match this application, like:
+        ... into something fully lowercased. This is done by taking the part of the URL after <pre>/services/</pre> and doing a base36 text encoding. Then we tell this app we need to decode it by routing from a different endpoint. So the literal demo URL above would become:
       </p>
-      <code>https://statuspage-slack.glitch.me/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
+      <code>https://statuspage-slack.glitch.me/encoded/g48i6vdkr5et3zwyjtalyp25dt367a1f98in25qeya8k6ello2tmcw4kx1vyucivmkig</code>
       <p>
-        ... before feeding it into a Statuspage.io webhook subscription.
-        This app doesn't maintain any state, so it just translates the Statuspage webhook content into a Slack message payload,
-        and forwards it to the equivalent Slack endpoint.
+        Since it's lowercased, it can be safely fed into Statuspage without being mangled. Use this form (browser code only) to translate a real slack endpoint:
       </p>
+      <form id="translatorForm">
+        <input id="translatorInput" type="text" maxlength="500" placeholder="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX">
+        <button type="submit">Translate</button>
+      </form>
       <p>
         Hey, I'm on <a href="https://github.com/NReilingh/statuspage-slack">GitHub</a>.
       </p>

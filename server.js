@@ -4,7 +4,7 @@
 // init project
 var express = require('express');
 var app = express();
-
+let statuspage_json = require('./statuspage_json.js');
 
 // We'll use this later for an info page at /
 app.use(express.static('public'));
@@ -15,7 +15,9 @@ app.get('/', function(request, response) {
 });
 
 // POST requests actually do the thing.
-app.post('/services/*', express.json(), require('./statuspage_json.js'));
+app.post('/services/*', express.json(), statuspage_json.raw);
+app.post('/percent_encoded/:percent_encoded_string', express.json(), statuspage_json.percent_encoded);
+app.post('/encoded/:base36_encoded_string', express.json(), statuspage_json.encoded);
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {

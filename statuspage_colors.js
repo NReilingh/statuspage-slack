@@ -7,5 +7,5 @@ let indicator_colors = {
 };
 
 module.exports = function (status) {
-  return indicator_colors[status];
+  return indicator_colors[status] || indicator_colors["none"];
 };

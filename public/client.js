@@ -18,7 +18,7 @@ translatorForm.onsubmit = function(event) {
   console.log(slackURL.split('services/'));
 
   // reset form 
-  translatorInput.value = 'https://statuspage-slack.glitch.me/encoded/' + SimpleBase.base36.encode(slackURL.split('services/')[1]);
+  translatorInput.value = 'https://statuspage-slack.glitch.me/services/' + slackURL.split('services/')[1];
   
   translatorInput.focus();
   translatorInput.select();

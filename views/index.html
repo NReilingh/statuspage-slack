@@ -33,25 +33,18 @@
 
     <main>
       <p class="bold">Oh hi,</p>
-      <p>
-        Statuspage webhooks don't currently support case-sensitive URLs, so the initial strategy of just configuring the webhook to be the same endpoint as Slack's, but on this server, doesn't work. Instead, we need to encode the Slack endpoint (which looks something like this):
-      </p>
+      <p>Statuspage webhooks are pretty cool, (and now they support case-sensitive URLs!) but the hook payloads aren't natively compatible with Slack message hooks, which usually live at an endpoint like this:</p>
       <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
-      <p>
-        ... into something fully lowercased. This is done by taking the part of the URL after <pre>/services/</pre> and doing a base36 text encoding. Then we tell this app we need to decode it by routing from a different endpoint. So the literal demo URL above would become:
-      </p>
-      <code>https://statuspage-slack.glitch.me/encoded/g48i6vdkr5et3zwyjtalyp25dt367a1f98in25qeya8k6ello2tmcw4kx1vyucivmkig</code>
-      <p>
-        Since it's lowercased, it can be safely fed into Statuspage without being mangled. Use this form (browser code only) to translate a real slack endpoint:
-      </p>
+      <p>This app acts as a translation proxy for Statuspage.io webhooks. All you have to do is create a new Slack webhook, and then change the domain name to match this one.</p>
+      <code>https://statuspage-slack.glitch.me/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
+      <p>Here, you can even use this form to do it for you:</p>
       <form id="translatorForm">
         <input id="translatorInput" type="text" maxlength="500" placeholder="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX">
         <button type="submit">Translate</button>
       </form>
-      <p>
-        Hey, I'm on <a href="https://github.com/NReilingh/statuspage-slack">GitHub</a>.
-      </p>
-      
+      <p>Once you've got the proxied URL (that points to this app), you can feed it to Statuspage's webhook subscription form, like this:</p>
+      <img src="https://cdn.glitch.com/3410e728-958f-4ed0-b7f1-3baa37e614ba%2Fhook-sub-example.png?1554744140455" alt="a screenshot of the Statuspage.io webhook notification subscription form with example data showing the use of this app's domain" />
+      <p>After you're signed up, you can manage your subscription as usual with the confirmation email you receive. If you want to customize the translation, feel free to remix/fork this project, and/or submit PRs to the <a href="https://github.com/NReilingh/statuspage-slack">GitHub repo</a>!</p>
     </main>
 
     <footer>

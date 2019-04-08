@@ -1,7 +1,8 @@
 let request = require('request');
 let color_from_status = require('./statuspage_colors.js');
+let base36 = require('simple-base').base36;
 
-module.exports = function(req, res) {
+function process(req, res, target) {
   var status_object = {
     color: color_from_status(req.body.page.status_indicator),
     pretext: req.body.page.status_description,
@@ -32,7 +33,7 @@ module.exports = function(req, res) {
   request(
     {
       method: 'POST',
-      uri: 'https://hooks.slack.com' + req.path,
+      uri: 'https://hooks.slack.com' + target,
       json: true,
       body: { attachments: [status_object] }
     },
@@ -48,4 +49,20 @@ module.exports = function(req, res) {
       res.sendStatus(200);
     }
   );
-};
+}
+
+function percent_encoded(req, res) {
+  process(req, res, "/services/" + decodeURIComponent(req.params.percent_encoded_string));
+}
+
+function encoded(req, res) {
+  process(req, res, "/services/" + base36.decode(req.params.base36_encoded_string));
+}
+
+function raw(req, res) {
+  process(req, res, req.path)
+}
+
+module.exports.raw = raw;
+module.exports.encoded = encoded;
+module.exports.percent_encoded = percent_encoded;

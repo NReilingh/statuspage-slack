@@ -1,9 +1,10 @@
-let request = require('request');
-let {pageStatusColor, componentStatusColor} = require('./statuspage_colors.js');
-let base36 = require('simple-base').base36;
 const fs = require('fs');
+const request = require('request');
+const base36 = require('simple-base').base36;
+const parseNotification = require('./parseNotification.js');
 
-// Just doing this to research possible improvements. I promise I won't do anything nasaty with your slack workspace ID.
+// Just researching potential for improvement.
+// I promise I won't do anything nasty with your Slack workspace ID.
 const logAppend = fs.createWriteStream('./.data/incomingLog.ndjson', { flags: 'a+' });
 
 function process(req, res, target) {
@@ -13,39 +14,19 @@ function process(req, res, target) {
     body: req.body
   }) + "\n");
 
-  var status_object = {
-    color: pageStatusColor(req.body.page.status_indicator),
-    pretext: req.body.page.status_description,
+  const { page_status, attachment } = parseNotification(req.body);
+
+  const message_payload = {
+    text: page_status,
+    attachments: [attachment]
   };
-  
-  if (req.body.incident)
-  {
-    Object.assign(status_object, {
-      fallback: '[' + req.body.incident.status + ']: ' + req.body.incident.name,
-      title: req.body.incident.name + ' [' + req.body.incident.status + ']',
-      title_link: req.body.incident.shortlink,
-      text: req.body.incident.incident_updates[0].body
-    });
-  }
-  else if (req.body.component)
-  {
-    Object.assign(status_object, {
-      fallback: req.body.component.name + ': [' + req.body.component.status + ']',
-      fields: [
-        {
-          title: req.body.component.name,
-          value: req.body.component.status
-        }
-      ]
-    });
-  }
-  
+
   request(
     {
       method: 'POST',
       uri: 'https://hooks.slack.com' + target,
       json: true,
-      body: { attachments: [status_object] }
+      body: message_payload
     },
     function (error, response, body) {
       if (response.statusCode !== 200) {
@@ -55,7 +36,7 @@ function process(req, res, target) {
         res.status(response.statusCode).send(body);
         return;
       }
-      
+
       res.sendStatus(200);
     }
   );
@@ -70,9 +51,9 @@ function encoded(req, res) {
 }
 
 function raw(req, res) {
-  process(req, res, req.path)
+  process(req, res, req.path);
 }
 
-module.exports.raw = raw;
-module.exports.encoded = encoded;
-module.exports.percent_encoded = percent_encoded;
+exports.raw = raw;
+exports.encoded = encoded;
+exports.percent_encoded = percent_encoded;

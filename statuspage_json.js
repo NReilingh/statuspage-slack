@@ -1,10 +1,20 @@
 let request = require('request');
-let color_from_status = require('./statuspage_colors.js');
+let {pageStatusColor, componentStatusColor} = require('./statuspage_colors.js');
 let base36 = require('simple-base').base36;
+const fs = require('fs');
+
+// Just doing this to research possible improvements. I promise I won't do anything nasaty with your slack workspace ID.
+const logAppend = fs.createWriteStream('./.data/incomingLog.ndjson', { flags: 'a+' });
 
 function process(req, res, target) {
+  logAppend.write(JSON.stringify({
+    date: new Date().toISOString(),
+    target: target,
+    body: req.body
+  }) + "\n");
+
   var status_object = {
-    color: color_from_status(req.body.page.status_indicator),
+    color: pageStatusColor(req.body.page.status_indicator),
     pretext: req.body.page.status_description,
   };
   

@@ -17,7 +17,7 @@ function process(req, res, target) {
   const { page_status, attachment } = parseNotification(req.body);
 
   const message_payload = {
-    text: page_status,
+    // text: page_status,
     attachments: [attachment]
   };
 

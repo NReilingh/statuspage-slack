@@ -50,7 +50,7 @@ module.exports = function parseNotification(payload) {
       notificationType = 'incident';
       attachment = {
         color: incident_status_color[status],
-        fallback: `[${status}]: ${name}` + ['investigating', 'identified'].includes(status) ? ` [${impact}]` : '',
+        fallback: `[${status}]: ${name}` + (['investigating', 'identified'].includes(status) ? ` [${impact}]` : ''),
         title: `${name} [${status}]`,
         title_link: shortlink,
         text: incident_updates[0].body

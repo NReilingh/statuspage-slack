@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Statuspage-Slack Webhook Translator</title>
+    <meta name="description" content="A Node.js HTTP function for converting Statuspage.io webhooks for Slack.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        Statuspage-Slack Webhook Translator
+      </h1>
+    </header>
+
+    <main>
+      <p class="bold">Hello there,</p>
+      <p>If you want updates from a public status page powered by <a href="https://www.atlassian.com/software/statuspage">Atlassian Statuspage</a>
+        to appear in your Slack workspace, you may be able to subscribe to
+        the native Slack delivery type, which looks like this:</p>
+      <img
+          src="/assets/subscribe_via_slack_button.png"
+          alt="a screenshot of a statuspage subscription panel showing a Subscribe via Slack button" />
+      <p>However, this feature is pretty new so not all status pages have it turned on,
+        and research suggests that only incident reports are sent through this channel.
+      </p>
+      <p>
+        Statuspage webhooks send updates for component status changes as well as incident messages,
+        but these webhook payloads aren't natively compatible with
+        Slack's <a href="https://slack.com/apps/A0F7XDUAZ">Incoming WebHooks</a>,
+        which usually live at an endpoint like this:</p>
+      <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
+      <p>This app provides a simple translation service for Atlassian Statuspage webhooks.
+        All you have to do is create a new Slack <a href="https://slack.com/apps/A0F7XDUAZ">Incoming WebHook</a>,
+        and then change the domain name to match this one before subscribing it with the Statuspage:</p>
+      <code>https://statuspage-slack.vercel.app/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
+      <p>
+        Additionally, you can filter the type of notification you receive by appending a <code>?type=</code> parameter
+        of either <code>component</code> or <code>incident</code>.
+      </p>
+      <p>Here, you can even use this form to do it for you:</p>
+      <form id="translatorForm">
+        <input id="translatorInput" type="text" maxlength="500" placeholder="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX">
+        <input id="translatorComponent" type="checkbox" name="component" />
+        <label for="component">Components</label>
+        <input id="translatorIncident" type="checkbox" name="incident" />
+        <label for="incident">Incidents</label>
+        <button type="submit">Translate</button>
+      </form>
+      <p>The modified webhook URI is then fed to Statuspage's webhook subscription form, like this:</p>
+      <img
+        src="/assets/statuspage_example.png"
+        alt="a screenshot of the Statuspage webhook notification subscription form with example data showing the use of this app's domain" />
+      <p>After you're signed up, you can manage your subscription as usual with the confirmation email you receive.
+        If you want to enhance the translation, feel free to submit PRs to the
+        <a href="https://github.com/NReilingh/statuspage-slack">GitHub repo</a>,
+        or fork and deploy it yourself to Vercel:</p>
+        <a href="https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2FNReilingh%2Fstatuspage-slack"><img src="https://vercel.com/button" alt="Deploy with Vercel"/></a>
+      <p>P.S. Please give me a star on <a href="https://github.com/NReilingh/statuspage-slack">GitHub</a> if you use this!</p>
+    </main>
+  </body>
+</html>

@@ -32,20 +32,19 @@
     </header>
 
     <main>
-      <p class="bold">Oh hi,</p>
-      <p>Statuspage webhooks are pretty cool, (and now they support case-sensitive URLs!) but the hook payloads aren't natively compatible with Slack message hooks, which usually live at an endpoint like this:</p>
-      <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
-      <p>This app acts as a translation proxy for Statuspage.io webhooks. All you have to do is create a new Slack webhook, and then change the domain name to match this one.</p>
-      <code>https://statuspage-slack.glitch.me/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code>
-      <p>Here, you can even use this form to do it for you:</p>
-      <form id="translatorForm">
-        <input id="translatorInput" type="text" maxlength="500" placeholder="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX">
-        <button type="submit">Translate</button>
-      </form>
-      <p>Once you've got the proxied URL (that points to this app), you can feed it to Statuspage's webhook subscription form, like this:</p>
-      <img src="https://cdn.glitch.com/3410e728-958f-4ed0-b7f1-3baa37e614ba%2Fhook-sub-example.png?1554744140455" alt="a screenshot of the Statuspage.io webhook notification subscription form with example data showing the use of this app's domain" />
-      <p>After you're signed up, you can manage your subscription as usual with the confirmation email you receive. If you want to customize the translation, feel free to remix/fork this project, and/or submit PRs to the <a href="https://github.com/NReilingh/statuspage-slack">GitHub repo</a>!</p>
-      <p>P.S. Please give me a star on GitHub if you use this!</p>
+      <p class="bold">Oh hey,</p>
+      <h2>
+         This host is deprecated!
+      </h2>
+      <p>
+        I decided to move the deployment to <a href="https://statuspage-slack.vercel.app/">Vercel</a>. Glitch apps run in containers that are shut down due to inactivity,
+        and with statuspage hooks there is a risk that the container won't spin up in time for the next webhook to succeed, which will cause the webhook subscription to be paused.
+        Using serverless functions for this makes more sense.
+      </p>
+      <p>Go to the <a href="https://github.com/NReilingh/statuspage-slack">GitHub repo</a> or the <a href="https://statuspage-slack.vercel.app/">Vercel-hosted app</a>!</p>
+      <p>
+        I won't delete this, but Vercel should be more reliable and any future updates will be made there.
+      </p>
     </main>
 
     <footer>

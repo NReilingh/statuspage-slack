@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/services/(.*)", "destination": "/api/statuspage_post" }
+  ]
+}

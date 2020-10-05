@@ -1,6 +1,0 @@
-{
-  "strict": "never",
-  "parserOptions": {
-    "ecmaVersion": 7
-  }
-}

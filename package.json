@@ -1,32 +1,28 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
   "name": "statuspage-slack",
-  "version": "0.0.1",
-  "description": "A simple Node app built on Express.",
-  "main": "server.js",
+  "version": "0.1.0",
+  "description": "A Node.js HTTP function for converting Statuspage.io webhooks for Slack.",
   "scripts": {
-    "start": "node server.js"
+    "start": "vercel dev"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "request": "^2.87.0",
-    "simple-base": "^0.2.1"
+    "request": "^2.88.2"
   },
   "engines": {
-    "node": "8.x"
+    "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/statuspage-slack"
+    "url": "https://github.com/NReilingh/statuspage-slack"
   },
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
-    "express",
+    "vercel",
     "statuspage",
     "slack",
     "webhook"
-  ]
+  ],
+  "devDependencies": {
+    "vercel": "^20.1.1"
+  }
 }
